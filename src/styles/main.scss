@@ -1,3 +1,60 @@
+
+html {
+  font-family: Arial, sans-serif;
+  font-size: 30px;
+  line-height: 100px;
+}
+
 body {
   margin: 0;
+}
+
+.calendar {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 707px;
+  margin: 0 auto;
+  text-align: center;
+
+  div {
+    display: none;
+    width: 100px;
+    height: 100px;
+    box-sizing: border-box;
+    background-color: #eee;
+    border: 1px solid black;
+    margin-right: 1px;
+    margin-bottom: 1px;
+    font-size: 30px;
+    line-height: 100px;
+
+    &:hover {
+      background-color: pink;
+      cursor: pointer;
+      transform: translateY(-20px);
+    }
+  }
+}
+
+$mon: 28, 29, 30, 31;
+$week:(mon:0, thu:1, wed:2, tue:3, fri:4, sat:5, sun:6);
+
+@for $i from 1 through 31 {
+  .calendar div:nth-child(#{$i})::after {
+    content: "#{$i}";
+  }
+}
+
+@each $day in $mon {
+  @for $i from 1 through $day {
+    .calendar-#{$day} div:nth-child(#{$i}) {
+      display: block;
+    }
+  }
+}
+
+@each $day, $n in $week {
+  .calendar-#{$day} div:first-child {
+    margin-left: $n*101px;
+  }
 }
